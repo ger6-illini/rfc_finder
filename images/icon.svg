@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <linearGradient id="color-1" bx:pinned="true">
+      <title>Ohhapiness</title>
+      <stop style="stop-color: #00b09b;" offset="0"/>
+      <stop style="stop-color: #96c93d;" offset="1"/>
+    </linearGradient>
+    <linearGradient id="color-1-0" gradientUnits="userSpaceOnUse" x1="135.303" y1="134.433" x2="135.303" y2="158.924" xlink:href="#color-1"/>
+  </defs>
+  <text style="fill: url('#color-1-0'); font-family: Montserrat; font-size: 20.1px; font-weight: 700; paint-order: fill; white-space: pre;" transform="matrix(11.845737, 0, 0, 20.377457, -1352.759277, -2738.793213)" x="114.198" y="153.879">RFC</text>
+</svg>
