@@ -52,10 +52,14 @@ python update_corpus.py
 
 ## How to Use
 
-To start RFC Finder, you will always need to start the backend first. Please go to the project folder where you cloned the repo, e.g., `rfc-finder/`, and run the command below. You might also decide to run this as an executable service in Linux (with `systemd`) or as a login item in macOS, so the backend is automatically started every time you login to your computer.
+To start RFC Finder, you will always need to start the backend first. Please go to the project folder where you cloned the repo, e.g., `rfc-finder/`, make sure you are inside the conda virtual environment `rfc_finder`, and run the `rfc_finder.py` program. `rfc_finder.py` runs on TCP port 5000 so make sure no other service is making use of it.
 
 ```bash
+# make sure you are in the `conda` virtual environment you created before
+# if you are not, or you are not sure run...
+conda activate rfc_finder
+
 # run this from the project folder (the one cloned using `git clone`)
-source start_backend.sh
+python rfc_finder.py
 ```
 
