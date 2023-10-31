@@ -37,7 +37,7 @@ pip install metapy pytoml notebook bottle xmltodict
 git clone https://github.com/ger6-illini/rfc_finder.git
 ```
 
-3. Go inside the folder where you cloned the repo, e.g., `rfc-finder/`, make sure you are inside the conda virtual environment `rfc_finder`, and run the `update_rfcs_corpus.py` program. `update_rfcs_corpus.py` downloads the entire RFC corpus using the [RFC Editor](https://www.rfc-editor.org/) `rsync` server, so before running it make sure you are connected to the Internet and you are not sitting behind any firewalls that can block the `rsync` service. This step might take time but it should be over in less than five minutes if you are using a decent Internet connection. Once all the files are downloaded, `update_corpus.py` will create an inverted index which might take a minute or so. This index will be stored in a folder called `idx/`. It is recommended you run `update_corpus.py` on a regular basis maybe daily, weekly, biweekly or monthly, depending on how often you want to keep your index updated. To do that make use of your favorite scheduler. Some scheduler examples: `crond` in Linux (a good tutorial [here](https://ostechnix.com/a-beginners-guide-to-cron-jobs/)) or `launchd` in Mac OS.
+3. Go inside the folder where you cloned the repo, e.g., `rfc-finder/`, make sure you are inside the conda virtual environment `rfc_finder`, and run the `update_rfcs_corpus.py` program. `update_rfcs_corpus.py` downloads the entire RFC corpus using the [RFC Editor](https://www.rfc-editor.org/) `rsync` server, so before running it make sure you are connected to the Internet and you are not sitting behind any firewalls that can block the `rsync` service. This step might take time but it should be over in less than five minutes if you are using a decent Internet connection. Once all the files are downloaded, `update_corpus.py` will create an inverted index which might take a minute or so. This index will be stored in a folder called `idx/`. It is recommended you run `update_corpus.py` on a regular basis maybe daily, weekly, biweekly or monthly, depending on how often you want to keep your index updated. To do that make use of your favorite scheduler. Some scheduler examples are `crond` in Linux (a good tutorial [here](https://ostechnix.com/a-beginners-guide-to-cron-jobs/)) or `launchd` in Mac OS.
 
 ```bash
 # make sure you are in the `conda` virtual environment you created before
@@ -52,7 +52,7 @@ python update_corpus.py
 
 ## How to Use
 
-In order to use RFC Finder, you always need to start the backend first. Please go to the project folder where you cloned the repo, e.g., `rfc-finder`, and run the command below. You might also decide to run this as an executable service in Linux (with `systemd`) or as a login item in macOS, so the backend automatically runs every time you login to your computer.
+In order to use RFC Finder, you always need to start the backend first. Please go to the project folder where you cloned the repo, e.g., `rfc-finder/`, and run the command below. You might also decide to run this as an executable service in Linux (with `systemd`) or as a login item in macOS, so the backend automatically runs every time you login to your computer.
 
 ```bash
 # run this from the project folder (the one cloned using `git clone`)
