@@ -56,6 +56,6 @@ In order to use RFC Finder, you always need to start the backend first. Please g
 
 ```bash
 # run this from the project folder (the one cloned using `git clone`)
-./start_backend.sh
+source start_backend.sh
 ```
 
