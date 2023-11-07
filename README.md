@@ -28,7 +28,7 @@ conda install python=3.5
 
 # time to upgrade and install rest of Python packages needed
 pip install --upgrade pip
-pip install metapy pytoml notebook bottle xmltodict
+pip install metapy pytoml notebook bottle xmltodict pandas
 ```
 
 2. Now you have your Python environment ready, go to a folder of your choice and clone this repo. Since you will need to download the entire RFC corpus, you should plan to have no less than 800 MB of storage available to run RFC Finder.
