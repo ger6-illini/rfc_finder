@@ -1,19 +1,15 @@
-#                     d8P           
-#                  d888888P         
-#  d888b8b   d8888b  ?88'           
-# d8P' ?88  d8b_,dP  88P            
-# 88b  ,88b 88b      88b            
-# `?88P'`88b`?888P'  `?8b           
-#        )88                        
-#       ,88P                        
-#   `?8888P                         
-#             ,d8888b               
-#             88P'                  
-#          d888888P                 
-#   88bd88b  ?88'     d8888b .d888b,
-#   88P'  `  88P     d8P' `P ?8b,   
-#  d88      d88      88b       `?8b 
-# d88'     d88'      `?888P'`?888P' 
+#                _              
+#   ____ _____ _| |_            
+#  / _  | ___ (_   _)           
+# ( (_| | ____| | |_            
+#  \___ |_____)  \__)           
+# (_____|                       
+#  ______  _______ _______      
+# (_____ \(_______|_______)     
+#  _____) )_____   _        ___ 
+# |  __  /|  ___) | |      /___)
+# | |  \ \| |     | |_____|___ |
+# |_|   |_|_|      \______|___/ 
 #
 # created with https://manytools.org/hacker-tools/ascii-banner/
 
@@ -52,6 +48,7 @@ import re
 import subprocess
 import sys
 import time
+from datetime import datetime
 
 def main():
   parser = argparse.ArgumentParser(
@@ -59,22 +56,18 @@ def main():
   )
   args = parser.parse_args()
   print("""
-                     d8P           
-                  d888888P         
-  d888b8b   d8888b  ?88'           
- d8P' ?88  d8b_,dP  88P            
- 88b  ,88b 88b      88b            
- `?88P'`88b`?888P'  `?8b           
-        )88                        
-       ,88P                        
-   `?8888P                         
-             ,d8888b               
-             88P'                  
-          d888888P                 
-   88bd88b  ?88'     d8888b .d888b,
-   88P'  `  88P     d8P' `P ?8b,   
-  d88      d88      88b       `?8b 
- d88'     d88'      `?888P'`?888P' 
+               _              
+  ____ _____ _| |_            
+ / _  | ___ (_   _)           
+( (_| | ____| | |_            
+ \___ |_____)  \__)           
+(_____|                       
+ ______  _______ _______      
+(_____ \(_______|_______)     
+ _____) )_____   _        ___ 
+|  __  /|  ___) | |      /___)
+| |  \ \| |     | |_____|___ |
+|_|   |_|_|      \______|___/ 
 
 v 0.0.1 | MIT License | 2023 | by Gilberto Ramirez <ger6@illinois.edu>
   """)
@@ -83,11 +76,11 @@ v 0.0.1 | MIT License | 2023 | by Gilberto Ramirez <ger6@illinois.edu>
 
   if not os.path.isdir('corpus/'):
     sys.exit('Error: `corpus/` folder does not exist.')
-  print("`corpus/` folder exists... good!")
+  print("[" + str(datetime.now()) + "] `corpus/` folder exists... good!")
 
   if not os.path.isfile('corpus/file.toml'):
     sys.exit('Error: `corpus/file.tml` file does not exist.')
-  print("`corpus/file.toml` file exists... good!")
+  print("[" + str(datetime.now()) + "] `corpus/file.toml` file exists... good!")
 
   # `rsync` allows to get a local copy of the entire corpus of RFCs
   # making use of the free `rsync` service hosted by the RFC Editor
@@ -97,7 +90,8 @@ v 0.0.1 | MIT License | 2023 | by Gilberto Ramirez <ger6@illinois.edu>
   # decent Internet connection) and rest of times will last no more
   # than few seconds
   if not os.path.isdir('corpus/rfcs/'):
-    print("`rsync` will run for the first time. Please be patient...")
+    print("[" + str(datetime.now()) + "] `rsync` will run for the " +
+          "first time. Please be patient...")
   result = subprocess.run(['rsync', '-aivz', '--delete',
     'rsync.rfc-editor.org::rfcs-text-only', 'corpus/rfcs/'],
     stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
@@ -105,7 +99,7 @@ v 0.0.1 | MIT License | 2023 | by Gilberto Ramirez <ger6@illinois.edu>
     sys.exit(result.stderr)
   # get number of files added/modified/deleted by rsync
   file_count = result.stdout.count('\n') - 4
-  print("`rsync` completed... {} files added/modified/deleted.".format(file_count))
+  print("[" + str(datetime.now()) + "] `rsync` completed... {} files added/modified/deleted".format(file_count))
 
   # update `corpus/rfcs-full-corpus.txt` if one or more files have changed
   # also recreate the inverted index
@@ -126,9 +120,9 @@ v 0.0.1 | MIT License | 2023 | by Gilberto Ramirez <ger6@illinois.edu>
     with open(filename, 'w') as f:
         for corpus_filename in corpus_filenames:
             f.write("[none] rfcs/{}\n".format(corpus_filename))
-    print("file `{}` created!".format(filename))
+    print("[" + str(datetime.now()) + "] file `{}` created!".format(filename))
 
-    print("Recreating inverse index. Please be patient...")
+    print("[" + str(datetime.now()) + "] Recreating indices. Please be patient...")
     # delete existing inverted index
     result = subprocess.run(['rm', '-rf', 'idx/'],
       stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
@@ -136,15 +130,21 @@ v 0.0.1 | MIT License | 2023 | by Gilberto Ramirez <ger6@illinois.edu>
       sys.exit(result.stderr)
     # create from scratch inverted index
     idx = metapy.index.make_inverted_index('config.toml')
-    print("Inverse index done! {0} docs, {1} unique terms, avg doc length {2:.0f} chars."
+    print("[" + str(datetime.now()) +
+          "] Inverse index done! {0} docs, {1} unique terms, avg doc length {2:.0f} chars"
           .format(idx.num_docs(), idx.unique_terms(), idx.avg_doc_length()))
     # create from scratch forward index
     fidx = metapy.index.make_forward_index('config.toml')
-    print("Forward index done! {0} docs, {1} unique terms."
+    print("[" + str(datetime.now()) +
+          "] Forward index done! {0} docs, {1} unique terms"
           .format(fidx.num_docs(), fidx.unique_terms()))
 
   elapsed_time = round(time.time() - start_time)
-  print("Corpus update done! It took me {} seconds. Am I amazing or what?".format(elapsed_time))
+  print("[" + str(datetime.now()) + "] " +
+        "Corpus update done! It took me {} second".format(elapsed_time) +
+        ("s" if elapsed_time > 1 else "") +
+        ". Am I amazing or what?")
+  print("[" + str(datetime.now()) + "] Bye!")
 
 if __name__ == "__main__":
   main()
