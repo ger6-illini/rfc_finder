@@ -14,7 +14,8 @@ Get started with RFC Finder today! Please share your feedback and let me know wh
 - [How to Use](#how-to-use)
   - [Starting the Backend](#starting-the-backend)
   - [Searching Terms](#searching-terms)
-  - [Explorint Topics](#exploring-topics)
+  - [Exploring Topics](#exploring-topics)
+- [Author](#author) 
 - [License](#license)
 
 ## Getting Started
@@ -200,6 +201,10 @@ Leave this terminal window open. It will show the HTTP requests/responses manage
 ### Searching Terms
 
 ### Exploring Topics
+
+## Author
+
+Gilberto Ramirez [<ger6@illinois.edu>](mailto:ger6@illinois.edu) as the final project for the course CS410 Text Information Systems of [UIUC](https://illinois.edu/) in Fall 2023.
 
 ## License
 
