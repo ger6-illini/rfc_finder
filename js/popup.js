@@ -14,12 +14,24 @@ $(document).ready(function(){
 
   var activeDivId = $('.nav-link.active').data('target')
 
+  // to clear local storage
+  // chrome.storage.local.clear(function() {
+  //   var error = chrome.runtime.lastError;
+  //   if (error) {
+  //       console.error(error);
+  //   }
+  // });
+  // chrome.storage.sync.clear(); // callback is optional
+
   // save last successful search in local storage
   // so we can load it next time extension is opened
   chrome.storage.local.get(["q"]).then((result) => {
     $("#searchBox").val(result.q);
   });
   chrome.storage.local.get(["resultsHtml"]).then((result) => {
+    if (result.resultsHtml) {
+      $("#searchResults").removeClass("vh-100"); // large content to be added
+    }
     $("#searchResults").html(result.resultsHtml);
   });
 
@@ -96,6 +108,7 @@ $(document).ready(function(){
           var resultsHtml = "";
           $("#searchResults").html(resultsHtml);
           if (data.results.length > 0) {
+            $("#searchResults").removeClass("vh-100"); // large content to be added
             $.each(data.results, function(index, item) {
               newP = document.createElement("p");
               newP.className = "fs-6";
