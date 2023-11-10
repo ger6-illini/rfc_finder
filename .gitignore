@@ -48,3 +48,7 @@ __pycache__/
 # MeTA index files
 ##################
 idx/
+
+# Topic models
+##############
+models/
