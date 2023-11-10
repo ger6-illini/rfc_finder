@@ -153,11 +153,11 @@ python discover_topics.py
 
 v 0.0.1 | MIT License | 2023 | by Gilberto Ramirez <ger6@illinois.edu>
   
-[2023-11-10 10:39:06.349079] Running discovery of 20 topics using LDA Gibbs sampling with alpha = 0.1, beta = 0.1, iters = 1000
-[2023-11-10 10:39:06.349149] Please be patient. As an example, discovering 20 topics might take 20 to 30 minutes in a 2021 MacBook Pro...
-[2023-11-10 11:05:48.285577] All done! Results were written to 'models/lda-pgibbs-20'. Now you are ready to explore topics in RFC Finder!
-[2023-11-10 11:05:48.285643] It took me 26 minutes to discover 20 topics
-[2023-11-10 11:05:48.285652] Bye!
+[2023-11-10 15:02:09.363029] Running discovery of 20 topics using LDA Gibbs sampling with alpha = 0.1, beta = 0.1, iters = 1000
+[2023-11-10 15:02:09.363097] Please be patient. As an example, discovering 20 topics might take 20 to 30 minutes in a 2021 MacBook Pro...
+[2023-11-10 15:51:02.655740] All done! Results were written to 'models/lda-pgibbs-20'. Now you are ready to explore topics in RFC Finder!
+[2023-11-10 15:51:02.655801] It took me 48 minutes to discover 20 topics
+[2023-11-10 15:51:02.655812] Bye!
 (rfc_finder) project/rfc_finder [main] » 
 ```
 
