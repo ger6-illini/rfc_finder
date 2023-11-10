@@ -47,10 +47,12 @@ pip install metapy pytoml bottle xmltodict pandas
 git clone https://github.com/ger6-illini/rfc_finder.git
 ```
 
-3. Upon cloning the repository, you will find the following files. Each file is accompanied by a brief description to help you understand its purpose:
+3. Upon cloning the repository, you will find the following files inside the `rfc_finder/` folder. Each file is accompanied by a brief description to help you understand its purpose:
 
 ```bash
 .
+├── LICENSE                                # (MIT) license file
+├── README.md                              # this file!
 ├── config.toml                            # master MeTA config
 ├── corpus                                 # will store RFCs corpus
 │   └── file.toml                          # MeTA config for RFCs file corpus
@@ -82,7 +84,7 @@ git clone https://github.com/ger6-illini/rfc_finder.git
 4. Go inside the folder where you cloned the repo, e.g., `rfc-finder/`, make sure you are inside the conda virtual environment `rfc_finder` you created in step 2, and run the `get_rfcs.py` program. `get_rfcs.py` downloads the entire RFC corpus using the [RFC Editor](https://www.rfc-editor.org/) `rsync` server, so before running it make sure you are connected to the Internet and you are not sitting behind any firewalls that can block the `rsync` service. This step might take time but it should be over in less than five minutes if you are using a decent Internet connection. Once all the files are downloaded, `get_rfcs.py` will create both an inverted index and a forward index which might take a minute or so. This index will be stored in a folder called `idx/`. It is recommended you run `get_rfcs.py` on a regular basis maybe daily, weekly, biweekly or monthly, depending on how often you want to keep your index updated. To do that make use of your favorite scheduler. Some scheduler examples are `crond` in Linux (a good tutorial [here](https://ostechnix.com/a-beginners-guide-to-cron-jobs/)) or `launchd` in Mac OS. For reference, see below the commands and an example of how your terminal might look like after completing the process.
 
 ```bash
-# go inside the project folder (the one cloned using `git clone`)
+# go inside the repo folder (created with `git clone`)
 # (if you are not there yet)
 cd rfc_finder/
 
@@ -94,7 +96,7 @@ python get_rfcs.py
 ```
 
 ```
-(rfc_finder) project/rfc_finder » python get_rfcs.py
+(rfc_finder) project/rfc_finder [main] » python get_rfcs.py
 
                _              
   ____ _____ _| |_            
@@ -116,7 +118,7 @@ v 0.0.1 | MIT License | 2023 | by Gilberto Ramirez <ger6@illinois.edu>
 [2023-11-10 11:56:09.939948] `rsync` completed... 0 files added/modified/deleted
 [2023-11-10 11:56:09.940114] Corpus update done! It took me 1 second. Am I amazing or what?
 [2023-11-10 11:56:09.940152] Bye!
-(rfc_finder) project/rfc_finder » 
+(rfc_finder) project/rfc_finder [main] » 
 ```
 
 5. Run the `discover_topics.py` program which will discover in an unsupervised way latent topics in the RFCs corpus using LDA with Gibbs sampling. This step will take several minutes, so please be patient. By default, this program will discover 20 topics and that might take close to 30 minutes in a 2021 MacBook Pro. You might want to run this program after updating the corpus on a regular basis as suggested in the previous step. For reference, see below the commands and an example of how your terminal might look like after completing the process.
@@ -127,7 +129,7 @@ python discover_topics.py
 ```
 
 ```
-(rfc_finder) project/rfc_finder » python discover_topics.py
+(rfc_finder) project/rfc_finder [main] » python discover_topics.py
 
      _ _                                  
     | (_)                                 
@@ -151,7 +153,7 @@ v 0.0.1 | MIT License | 2023 | by Gilberto Ramirez <ger6@illinois.edu>
 [2023-11-10 11:05:48.285577] All done! Results were written to 'models/lda-pgibbs-20'. Now you are ready to explore topics in RFC Finder!
 [2023-11-10 11:05:48.285643] It took me 26 minutes to discover 20 topics
 [2023-11-10 11:05:48.285652] Bye!
-(rfc_finder) project/rfc_finder » 
+(rfc_finder) project/rfc_finder [main] » 
 ```
 
 7. Install the Chrome extension as indicated in [this link](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked). The extension directory is same as the project folder where you cloned the repo, e.g., `rfc-finder/`. If you face an issue where Chrome cannot upload the extension folder because there is a subfolder with a name starting with `__`, please go inside `rfc_finder/`, delete the folder `__pycache__/` , and try installing the extension again. This folder contains bytecode-compiled versions of the Python RFC Finder programs created by the Python interpreter and will be regenerated next time the programs need to run.
@@ -178,8 +180,8 @@ python rfc_finder.py
 After starting the backend you should see something like this in your terminal window:
 
 ```
-(rfc_finder) project/rfc_finder » conda activate rfc_finder
-(rfc_finder) project/rfc_finder » rfc_finder python rfc_finder.py
+(rfc_finder) project/rfc_finder [main] » conda activate rfc_finder
+(rfc_finder) project/rfc_finder [main] » rfc_finder python rfc_finder.py
 
  ______  _______ _______    _______ _           _             
 (_____ \(_______|_______)  (_______|_)         | |            
