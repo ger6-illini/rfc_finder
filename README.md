@@ -96,7 +96,7 @@ python get_rfcs.py
 ```
 
 ```
-(rfc_finder) project/rfc_finder [main] » python get_rfcs.py
+(rfc_finder) project/rfc_finder [main] » python get_rfcs.py 
 
                _              
   ____ _____ _| |_            
@@ -113,11 +113,16 @@ python get_rfcs.py
 
 v 0.0.1 | MIT License | 2023 | by Gilberto Ramirez <ger6@illinois.edu>
   
-[2023-11-10 11:56:08.669713] `corpus/` folder exists... good!
-[2023-11-10 11:56:08.669750] `corpus/file.toml` file exists... good!
-[2023-11-10 11:56:09.939948] `rsync` completed... 0 files added/modified/deleted
-[2023-11-10 11:56:09.940114] Corpus update done! It took me 1 second. Am I amazing or what?
-[2023-11-10 11:56:09.940152] Bye!
+[2023-11-10 14:51:58.072127] `corpus/` folder exists... good!
+[2023-11-10 14:51:58.072156] `corpus/file.toml` file exists... good!
+[2023-11-10 14:51:58.072169] `rsync` will run for the first time. Please be patient...
+[2023-11-10 14:52:48.107567] `rsync` completed... 11515 files added/modified/deleted
+[2023-11-10 14:52:48.139515] file `corpus/rfcs-full-corpus.txt` created!
+[2023-11-10 14:52:48.139552] Recreating indices. Please be patient...
+[2023-11-10 14:53:03.085203] Inverse index done! 9292 docs, 252848 unique terms, avg doc length 3742 chars
+[2023-11-10 14:53:17.875410] Forward index done! 9292 docs, 252848 unique terms
+[2023-11-10 14:53:17.875487] Corpus update done! It took me 80 seconds. Am I amazing or what?
+[2023-11-10 14:53:17.875499] Bye!
 (rfc_finder) project/rfc_finder [main] » 
 ```
 
