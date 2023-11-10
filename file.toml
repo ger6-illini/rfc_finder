@@ -1,0 +1,5 @@
+type = "file-corpus"
+list = "rfcs"
+encoding = "utf-8" # optional; this is the default
+
+# reference: https://meta-toolkit.org/overview-tutorial.html
