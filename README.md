@@ -6,7 +6,7 @@ Introducing RFC Finder, a revolutionary Chrome browser extension designed to tac
 
 RFC Finder is the solution to this problem, streamlining the research process thanks to its advanced search capabilities. What sets RFC Finder apart is its use of the [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) retrieval function working on top of an inverted index that encompasses over 10,000 Internet standards. This goes beyond traditional search capabilities, which rely solely on exact keyword matches.
 
-Get started with RFC Finder today! Please share your feedback and let me know what new features you want to see next.
+Get started with RFC Finder today! Please share your feedback and let me know what new features you would like to see next.
 
 ## Table of Contents
 
