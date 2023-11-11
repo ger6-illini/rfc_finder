@@ -203,11 +203,50 @@ Hit Ctrl-C to quit.
 
 ```
 
-Leave this terminal window open. It will show the HTTP requests/responses managed by the RFC Finder web service.
+Leave this terminal window open. It will show the HTTP requests/responses managed by the RFC Finder web service. Whenever you finish working with RFC Finder, you can stop the backend using <kbd>⌃ Control</kbd> + <kbd>C</kbd>.
 
 ### Searching Terms
 
+To search terms in the RFCs corpus you just need to open your Chrome browser activating the profile where you installed the RFC Finder extension and either click the RFC Finder icon (if pinned) or call it from the extensions menu. The RFC Finder popup window will become visible and now you can enter your query terms in its search box and press <kbd>⏎ Enter</kbd> when done to retrieve the results. RFC Finder is configured by default to show the top 10 most relevant results corresponding to the given query as shown below:
+
+![Searching terms in RFC Finder](images/howtouse-searching-1.png)
+
+You can click in any of the links listed and RFC Finder will open a new tab with the content of the link. All links are from the [RFC Editor](https://www.rfc-editor.org/) site which is the authoritative source of all Internet standards. All metadata is built with the index provided by the RFC Editor, so they are accurate. In addition, you can see an score value which is provided by the ranker (Okapi BM25) function: the higher, the more relevant the content against the query terms given. Results given are sorted by score from high to low, so the most relevant result is kept in the first position. RFC Finder provides the following metadata for every relevant result in order from top to bottom, left to right:
+ * RFC identifier, known as *doc-id*, in the format [RFC####] where #### is the four digit RFC number followed by the title of the RFC.
+ * RFC year of publication.
+ * RFC authors including the editor.
+ * First portion of the abstract of the RFC if part of the metadata; the oldest RFCs will not have it.
+ * Score returned by the BM25 Okapi ranker indicating relevance against input query.
+ * Number of pages of the RFC.
+ * RFC status such as Internet standard, proposed standard, best current practice, or informational. More details can be found [here](https://en.wikipedia.org/wiki/Request_for_Comments).
+ * [IETF area](https://www.ietf.org/topics/areas/) acronym such as RAI (Real-Time Applications and Infrastructure Area) the RFC is part of. A tooltip provides the expanded form of the acronym.
+ * [IETF working group](https://www.ietf.org/how/wgs/) that worked on the RFC.
+ * IETF stream, e.g., IETF or [IAB](https://www.ietf.org/about/groups/iab/), where this RFC belongs.
+
 ### Exploring Topics
+
+RFC Finder can provide a list of topics a specific RFC covers and its percentage of coverage. This can speed up the work of a researcher that, before reading the entire specification, can look into the list of topics first in order to understand if it contains the topics he/she is interested in and with enough depth. RFC Finder is able to provide this thanks to a pre-calculated matrix of topics coverage for every document in the corpus and created by the `discover_topics.py` discussed in the [Getting Started](#getting-started) section.
+
+Using the RFC Finder *Topics* feature is simple. You just need to be browsing the RFC you want from the [RFC Editor](https://www.rfc-editor.org/) website such as [RFC6733: Diameter Base Protocol](https://www.rfc-editor.org/rfc/rfc6733.html), open the RFC Editor extension, and click on the *Topics* link in the navigation bar at the bottom. Take a look at the sample screenshot below.
+
+> *Warning:* Calling RFC Finder from a browser tab with no RFC from the RFC Editor loaded will make he *Topics* feature unavailable. Although *Topics* will be displayed in the navigation bar, it will be **disabled** and cannot be clicked.
+
+An example with the *Topics* link enabled can be seen below:
+
+![Checking topics in RFC Finder](images/howtouse-topics-1.png)
+
+As it can be seen, RFC Editor was invoked from [RFC4005](https://www.rfc-editor.org/rfc/rfc4005.html), so the *Topics* link was enabled. After clicking on the *Topics* link, the popup is populated with three sections for the selected RFC.
+ * The top section listing the top 5 topics covered in the document including label, such as `T##` where `##` is a number from 1 to 20 identifying the topics discovered in an unsupervised way for the corpus by `discover_topics.py`, and percentage of coverage.
+ * The middle section showing a lollipop chart of the top ten words for the topic versus their probability. Probability is calculated using a scorer that chooses words with high probability that have lower probability in the other topics. Stop words removal and TF-IDF are applied to the topics to select words that can represent content in a more meaningful way.
+ * A list of the top 5 documents for the selected topic based on coverage. These can help in understanding what the topic is about and, potentially, be related to the given RFC in a way the researcher might find relevant.
+
+Below an screenshot continuation of the previous example after scrolling down to show 4 of the top 5 results for the selected topic:
+
+![Checking topics in RFC Finder](images/howtouse-topics-2.png)
+
+Finally, you can select another topic from the radio button. Rendering the data is almost instantaneous since the data loading was uploaded to the DOM when the *Topics* link was clicked. See below an screenshot after clicking on another topic for the same RFC:
+
+![Checking topics in RFC Finder](images/howtouse-topics-3.png)
 
 ## Author
 
