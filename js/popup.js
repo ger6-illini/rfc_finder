@@ -30,7 +30,7 @@ $(document).ready(function(){
   });
   chrome.storage.local.get(["resultsHtml"]).then((result) => {
     if (result.resultsHtml) {
-      $("#searchResults").removeClass("vh-100"); // large content to be added
+      $("#non-navbar-space").removeClass("vh-100-adjusted"); // large content to be added
     }
     $("#searchResults").html(result.resultsHtml);
   });
@@ -39,14 +39,15 @@ $(document).ready(function(){
   // of active tab contains an RFC coming from the RFC-editor website
   var docid = null;
 
+  // this is the global variable that will hold the URL of active tab
+  var url = null;
+
   // get the current active tab
   chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
     // tabs[0] contains information about the active tab
     if (tabs && tabs[0]) {
       // get the URL of the active tab
-      var url = tabs[0].url;
-      $("#topics").addClass("vh-100"); // small content to be added
-      $("#topics").html("Fetching topics from URL " + url + "...");
+      url = tabs[0].url;
 
       var re = new RegExp("^https://www\.rfc\-editor\.org/rfc/(rfc\\d{4})\.(txt|html)$");
       results = url.match(re)
@@ -86,6 +87,8 @@ $(document).ready(function(){
     $("#" + targetClickedDivId).show();
 
     if (clickedNavLink.data('target') === "topics" && !topicsFetched) {
+      $("#topics").html("Fetching topics from URL " + url + "...");
+      $("#non-navbar-space").addClass("vh-100-adjusted"); // small content to be added
       loadTopics();
     }
   });
@@ -109,7 +112,7 @@ $(document).ready(function(){
           var resultsHtml = "";
           $("#searchResults").html(resultsHtml);
           if (data.results.length > 0) {
-            $("#searchResults").removeClass("vh-100"); // large content to be added
+            $("#non-navbar-space").removeClass("vh-100-adjusted"); // large content to be added
             $.each(data.results, function(index, item) {
               newP = document.createElement("p");
               newP.className = "fs-6";
@@ -163,7 +166,7 @@ $(document).ready(function(){
             chrome.storage.local.set({ q: searchQuery });
             chrome.storage.local.set({ resultsHtml: $("#searchResults").html() });
           } else {
-            $("#searchResults").addClass("vh-100"); // small content to be added
+            $("#non-navbar-space").addClass("vh-100-adjusted"); // small content to be added
             var resultsHtml = "<p class='text-danger fs-5'>";
             resultsHtml += "No results containing all your query terms were found. ";
             resultsHtml += "Try more general, fewer, or different keywords and ";
@@ -172,7 +175,7 @@ $(document).ready(function(){
           }
         },
         error: function(error) {
-          $("#searchResults").addClass("vh-100"); // small content to be added
+          $("#non-navbar-space").addClass("vh-100-adjusted"); // small content to be added
           var resultsHtml = "<p class='text-danger fs-5'>";
           resultsHtml += "Oops! It seems the backend is broken.";
           $("#searchResults").html(resultsHtml);
@@ -198,8 +201,6 @@ $(document).ready(function(){
         var num_topics = Object.keys(data.topics).length;
         if (num_topics > 0) {
           // one or more topics
-
-          $("#topics").removeClass("vh-100"); // large content to be added
 
           // section 1: topics
           var k = data.k;
@@ -281,6 +282,7 @@ $(document).ready(function(){
             selectFirst = false;
           }
 
+          $("#non-navbar-space").removeClass("vh-100-adjusted"); // large content to be added
           $("#topics").html(resultsHtml);
 
           // time to add D3 lollipop charts for terms probability
@@ -411,7 +413,7 @@ $(document).ready(function(){
           // the topics for the given docid
           topicsFetched = true;
         } else {
-          $("#topics").addClass("vh-100"); // small content to be added
+          $("#non-navbar-space").addClass("vh-100-adjusted"); // small content to be added
           // topics dictionary has no entries
           var resultsHtml = "<p class='text-danger fs-5'>";
           resultsHtml += "No topics found for [" + docid + "]. ";
@@ -421,7 +423,7 @@ $(document).ready(function(){
         }
       },
       error: function(error) {
-        $("#topics").addClass("vh-100"); // small content to be added
+        $("#non-navbar-space").addClass("vh-100-adjusted"); // small content to be added
         var resultsHtml = "<p class='text-danger fs-5'>";
         resultsHtml += "Oops! It seems the backend is broken.";
         $("#topics").html(resultsHtml);
