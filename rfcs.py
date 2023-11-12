@@ -123,6 +123,10 @@ class RFCs:
       Dictionary containing the metadata for the RFC specified by `filename`.
     """
 
+    # if `docid` does not exist in metadata return an empty dictionary 
+    if docid not in self.metadata['docid_to_index'].keys():
+      return {}
+
     # fetch/transform the selected metadata to return
     i = self.metadata['docid_to_index'][docid]
     title = self.metadata['rfc-index']['rfc-entry'][i]['title']
@@ -280,7 +284,8 @@ class RFCs:
       topic_dist_str = str(model.topic_distribution(doc_idx))
       topic_dist_idx = [int(s) for s in p_topic_coverage_idx.findall(topic_dist_str)]
       topic_dist_val = [float(s) for s in p_topic_coverage_val.findall(topic_dist_str)]
-      topic_dist_float = np.zeros(num_topics)
+      # not all topics will have a probability value
+      topic_dist_float = np.full(num_topics, -1.0)
       for i, val in enumerate(topic_dist_val):
           topic_dist_float[topic_dist_idx[i]] = val
       
@@ -331,6 +336,10 @@ class RFCs:
        * docs: Docs with largest topic coverage for every top topic in topics
     """
 
+    # if `docid` does not exist in pi_df return an empty dictionary
+    if docid not in self.pi_df.index:
+      return {}
+
     # get top k topics associated to `docid`
     topics = self.pi_df.loc[docid, :].\
              sort_values(ascending=False)[0:top_k].to_dict(into=OrderedDict)
@@ -343,7 +352,10 @@ class RFCs:
     scorer = metapy.topics.BLTermScorer(model)
     words = OrderedDict()
     for topic in topics:
-      tid = int(re.search(r'\d+$', topic).group())
+      # there was not probability assigned to this topic, so skip
+      if topics[topic] == -1.0:
+        continue
+      tid = int(re.search(r'\d+$', topic).group()) - 1
       words[topic] = [{'word': fidx.term_text(pr[0]), 'p': pr[1]}
                      for pr in model.top_k(tid=tid, scorer=scorer)]
 
@@ -356,6 +368,8 @@ class RFCs:
       metadata_list = []
       for top_k_docid, score in top_k_docids.items():
         metadata = self.get_metadata(top_k_docid)
+        if metadata == {}:
+          continue
         metadata['score'] = score
         metadata_list.append(metadata)
       docs[topic] = metadata_list

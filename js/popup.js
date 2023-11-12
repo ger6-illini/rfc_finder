@@ -45,6 +45,7 @@ $(document).ready(function(){
     if (tabs && tabs[0]) {
       // get the URL of the active tab
       var url = tabs[0].url;
+      $("#topics").addClass("vh-100"); // small content to be added
       $("#topics").html("Fetching topics from URL " + url + "...");
 
       var re = new RegExp("^https://www\.rfc\-editor\.org/rfc/(rfc\\d{4})\.(txt|html)$");
@@ -162,6 +163,7 @@ $(document).ready(function(){
             chrome.storage.local.set({ q: searchQuery });
             chrome.storage.local.set({ resultsHtml: $("#searchResults").html() });
           } else {
+            $("#searchResults").addClass("vh-100"); // small content to be added
             var resultsHtml = "<p class='text-danger fs-5'>";
             resultsHtml += "No results containing all your query terms were found. ";
             resultsHtml += "Try more general, fewer, or different keywords and ";
@@ -170,6 +172,7 @@ $(document).ready(function(){
           }
         },
         error: function(error) {
+          $("#searchResults").addClass("vh-100"); // small content to be added
           var resultsHtml = "<p class='text-danger fs-5'>";
           resultsHtml += "Oops! It seems the backend is broken.";
           $("#searchResults").html(resultsHtml);
@@ -192,7 +195,6 @@ $(document).ready(function(){
         // handling the API response and displaying the results
         var resultsHtml = "";
         $("#topics").html(resultsHtml);
-        console.log(data);
         var num_topics = Object.keys(data.topics).length;
         if (num_topics > 0) {
           // one or more topics
@@ -281,19 +283,6 @@ $(document).ready(function(){
 
           $("#topics").html(resultsHtml);
 
-          // attach handler to dynamically created buttons
-          $(".btn-check").on("click", function(event) {
-            // hide all divs
-            for (const [key, value] of Object.entries(data.topics)) {
-              $("#words-" + key).hide();
-              $("#docs-" + key).hide();
-            }
-            // show the div for the topic tied to the button clicked
-            var topic = $(this).attr("id").slice(4);
-            $("#words-" + topic).show();
-            $("#docs-" + topic).show();
-          });
-
           // time to add D3 lollipop charts for terms probability
           // inspired by https://d3-graph-gallery.com/lollipop.html
 
@@ -301,12 +290,16 @@ $(document).ready(function(){
           const margin = {top: 10, right: 40, bottom: 40, left: 100},
           width = 750 - margin.left - margin.right,
           height = 300 - margin.top - margin.bottom;
+          // set duration of transitions
+          const duration = 2000;
+          var xMax = {};
 
           for (const [key, wordsData] of Object.entries(data.words)) {
 
             // append the svg object to the words div
             const svg = d3.select("#words-" + key)
             .append("svg")
+            .attr("id", "words-svg-" + key)
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
@@ -319,9 +312,9 @@ $(document).ready(function(){
             });
 
             // Add X axis
-            const xMax = d3.max(wordsData, function(d) { return +d.p;} );
+            xMax[key] = d3.max(wordsData, function(d) { return +d.p;} );
             const x = d3.scaleLinear()
-            .domain([0, xMax])
+            .domain([0, xMax[key]])
             .range([ 0, width]);
             svg.append("g")
             .attr("transform", `translate(0, ${height})`)
@@ -347,7 +340,8 @@ $(document).ready(function(){
             svg.selectAll("myline")
             .data(wordsData)
             .join("line")
-            .attr("x1", function(d) { return x(d.p); })
+            // .attr("x1", function(d) { return x(d.p); })
+            .attr("x1", x(0))
             .attr("x2", x(0))
             .attr("y1", function(d) { return y(d.word); })
             .attr("y2", function(d) { return y(d.word); })
@@ -357,7 +351,8 @@ $(document).ready(function(){
             svg.selectAll("mycircle")
             .data(wordsData)
             .join("circle")
-            .attr("cx", function(d) { return x(d.p); })
+            // .attr("cx", function(d) { return x(d.p); })
+            .attr("cx", x(0))
             .attr("cy", function(d) { return y(d.word); })
             .attr("r", "7")
             .style("fill", "#E84A27")
@@ -365,12 +360,58 @@ $(document).ready(function(){
             .append('title')
             .text(function(d) { return `p = ${d.p}`; })
 
+            // Change the X coordinates of line and circle
+            svg.selectAll("circle")
+              .transition()
+              .duration(duration)
+              .attr("cx", function(d) { return x(d.p); })
+
+            svg.selectAll("line")
+              .transition()
+              .duration(duration)
+              .attr("x1", function(d) { return x(d.p); })
+
           }
+
+          // attach handler to dynamically created buttons
+          $(".btn-check").on("click", function(event) {
+            // hide all divs
+            for (const [key, value] of Object.entries(data.topics)) {
+              $("#words-" + key).hide();
+              $("#docs-" + key).hide();
+              const svg = d3.select("#words-svg-" + key)
+              // Change the X coordinates of line and circle back to zero
+              svg.selectAll("circle")
+                .attr("cx", 0)
+              svg.selectAll("line")
+                .attr("x1", 0)
+            }
+
+            // show the div for the topic tied to the button clicked
+            var topic = $(this).attr("id").slice(4);
+            $("#words-" + topic).show();
+            $("#docs-" + topic).show();
+            // Add X axis
+            const x = d3.scaleLinear()
+            .domain([0, xMax[topic]])
+            .range([ 0, width]);
+            const svg = d3.select("#words-svg-" + topic)
+            // Change the X coordinates of line and circle back to zero
+            svg.selectAll("circle")
+              .transition()
+              .duration(duration)
+              .attr("cx", function(d) { return x(d.p); })
+            svg.selectAll("line")
+              .transition()
+              .duration(duration)
+              .attr("x1", function(d) { return x(d.p); })
+          });
 
           // raise the flag so no need to make another API call to recover
           // the topics for the given docid
           topicsFetched = true;
         } else {
+          $("#topics").addClass("vh-100"); // small content to be added
           // topics dictionary has no entries
           var resultsHtml = "<p class='text-danger fs-5'>";
           resultsHtml += "No topics found for [" + docid + "]. ";
@@ -380,6 +421,7 @@ $(document).ready(function(){
         }
       },
       error: function(error) {
+        $("#topics").addClass("vh-100"); // small content to be added
         var resultsHtml = "<p class='text-danger fs-5'>";
         resultsHtml += "Oops! It seems the backend is broken.";
         $("#topics").html(resultsHtml);
