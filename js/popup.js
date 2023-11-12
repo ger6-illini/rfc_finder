@@ -49,12 +49,12 @@ $(document).ready(function(){
       // get the URL of the active tab
       url = tabs[0].url;
 
-      var re = new RegExp("^https://www\.rfc\-editor\.org/rfc/(rfc\\d{4})\.(txt|html)$");
+      var re = new RegExp("^https://www\.rfc\-editor\.org/rfc/rfc(\\d{1,4})?(\.(txt|html))$");
       results = url.match(re)
       if (results) {
         // URL of active tab contains an RFC coming
         // from the RFC-editor website! disable the Topics tab
-        docid = results[1].toUpperCase();
+        docid = "RFC" + results[1].padStart(4, '0');
       }
       else {
         // URL of active tab does not contain an RFC coming
