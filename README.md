@@ -22,6 +22,10 @@ Get started with RFC Finder today! Please share your feedback and let me know wh
 
 Gilberto Ramirez [<ger6@illinois.edu>](mailto:ger6@illinois.edu) completed this the final project for the CS410 Text Information Systems course at [UIUC](https://illinois.edu/) in Fall 2023.
 
+## Tutorial Video
+
+For a short video tutorial on how to install and use RFC Finder please go to [this link](https://youtu.be/mRecVEjrpXs).
+
 ## Getting Started
 
 1. The RFC Finder uses a [Python](https://www.python.org/) based backend. Since the backend needs [`metapy`](https://github.com/meta-toolkit/metapy), Python bindings for the [MeTA toolkit](https://meta-toolkit.org/), and `metapy` may encounter compatibility issues in Python releases newer than 3.5 across various environments, I recommend the procedure outlined below, which involves creating a dedicated [conda](https://conda.io/) virtual environment.
