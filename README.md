@@ -20,7 +20,7 @@ Get started with RFC Finder today! Please share your feedback and let me know wh
 
 ## Author
 
-Gilberto Ramirez [<ger6@illinois.edu>](mailto:ger6@illinois.edu) completed this the final project for the CS410 Text Information Systems course at [UIUC](https://illinois.edu/) in Fall 2023.
+Gilberto Ramirez [<ger6@illinois.edu>](mailto:ger6@illinois.edu) completed this as the final project for the CS410 Text Information Systems course at [UIUC](https://illinois.edu/) in Fall 2023.
 
 ## Tutorial Video
 
