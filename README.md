@@ -68,15 +68,20 @@ git clone https://github.com/ger6-illini/rfc_finder.git
 │   └── bootstrap.min.css                  # Bootstrap minified CSS
 ├── discover_topics.py                     # Python program to discover latent topics
 ├── docs
+│   ├── project-final-report_ger6.pdf      # Project final report
 │   ├── project-progress-report_ger6.pdf   # Project progress report
 │   └── project-proposal_ger6.pdf          # Project proposal report
 ├── get_rfcs.py                            # Python program to download RFCs corpus
-├── images                                 # Chrome extension icons
-│   ├── icon-128.png                       #  for installation and Chrome Web Store
-│   ├── icon-16.png                        #  for favicon
-│   ├── icon-32.png                        #  for favicon (will try this first)
-│   ├── icon-48.png                        #  for chrome://extensions
-│   └── icon.svg                           #  the mother of all icons
+├── images
+│   ├── howtouse-searching-1.png           # for use in README.md
+│   ├── howtouse-topics-1.png              # for use in README.md
+│   ├── howtouse-topics-2.png              # for use in README.md
+│   ├── howtouse-topics-3.png              # for use in README.md
+│   ├── icon-128.png                       # Chrome extension icon for installation and Chrome Web Store
+│   ├── icon-16.png                        # Chrome extension icon for favicon
+│   ├── icon-32.png                        # Chrome extension icon for favicon (will try this first)
+│   ├── icon-48.png                        # Chrome extension icon for chrome://extensions
+│   └── icon.svg                           # Chrome extension icon the mother of all icons
 ├── js
 │   ├── bootstrap.bundle.min.js            # Bootstrap minified JavaScript library
 │   ├── d3.v7.min.js                       # D3 JavaScript library
